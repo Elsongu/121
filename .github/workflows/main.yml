@@ -1,21 +1,31 @@
-name: weixin
+name: Daily Push
 
-   on:
-     schedule:
-       - cron: '0 8 * * *'  # 每天8点执行
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天8点执行（UTC时间）
+  workflow_dispatch:  # 允许手动触发
 
-   jobs:
-     push:
-       runs-on: ubuntu-latest
-       steps:
-         - uses: actions/checkout@v2
-         - name: Set up Python
-           uses: actions/setup-python@v2
-           with:
-             python-version: '3.8'
-         - name: Install dependencies
-           run: |
-             python -m pip install --upgrade pip
-             pip install requests configparser
-         - name: Run Python script
-           run: python main.py
+jobs:
+  push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 拉取代码
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # 设置Python环境
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      # 安装依赖
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests configparser
+
+      # 运行Python脚本
+      - name: Run Python script
+        run: python main.py
