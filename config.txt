@@ -1,0 +1,11 @@
+[WEATHER_API]
+api_key = fc2bff38964949678b8acbee3ce9cbde
+
+[WECHAT]
+app_id = wx5dbc5ee608b15643
+app_secret = 5bb4fa5e0482f5f08f3254fb2ea46cde
+template_id = KhajdoB-SD1vRz9aB5HCaItXOFdLxYxV7fRC7Ji6AzU
+user_ids = oCQD37ASZcPTkrxDweglI2HczlGI,oCQD37EQw1aBRtZj7s-qMrS6XNpc
+
+[CUSTOM_MESSAGE]
+message = 小李同学，出门记得检查纸巾，要带奶糖哦，还记得吗，出门前要上厕所。爱你宝贝
