@@ -16,7 +16,7 @@ custom_message = config['CUSTOM_MESSAGE']['message']
 user_ids = config['WECHAT']['user_ids'].split(',')  # 多个用户ID，用逗号分隔
 
 # 城市设置为武汉
-city = "武汉"
+city = "武汉市"
 
 
 # 获取天气信息
