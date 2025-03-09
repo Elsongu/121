@@ -16,12 +16,34 @@ custom_message = config['CUSTOM_MESSAGE']['message']
 user_ids = config['WECHAT']['user_ids'].split(',')  # 多个用户ID，用逗号分隔
 
 # 城市设置为武汉
-city = "武汉市"
+city = "武汉"
 
-# 获取天气信息
-def get_weather(city):
+# 获取城市ID（和风天气需要城市ID）
+def get_city_id(city, api_key):
     try:
-        url = f"http://api.weatherapi.com/v1/current.json?key={weather_api_key}&q={city}"
+        url = f"https://geoapi.qweather.com/v2/city/lookup?location={city}&key={api_key}"
+        print(f"请求城市ID的URL: {url}")  # 打印请求URL
+        response = requests.get(url)
+        print(f"城市ID响应状态码: {response.status_code}")  # 打印状态码
+        print(f"城市ID响应内容: {response.text}")  # 打印响应内容
+        response.raise_for_status()  # 检查请求是否成功
+        data = response.json()
+        
+        # 检查返回的数据是否包含所需字段
+        if 'location' in data and len(data['location']) > 0:
+            city_id = data['location'][0]['id']
+            return city_id
+        else:
+            print("API 返回数据格式不正确:", data)
+            return None
+    except Exception as e:
+        print(f"获取城市ID失败: {e}")
+        return None
+
+# 获取天气信息（使用和风天气 API）
+def get_weather(city_id, api_key):
+    try:
+        url = f"https://api.qweather.com/v7/weather/now?location={city_id}&key={api_key}"
         print(f"请求天气API的URL: {url}")  # 打印请求URL
         response = requests.get(url)
         print(f"天气API响应状态码: {response.status_code}")  # 打印状态码
@@ -30,9 +52,9 @@ def get_weather(city):
         data = response.json()
         
         # 检查返回的数据是否包含所需字段
-        if 'current' in data and 'condition' in data['current']:
-            weather = data['current']['condition']['text']
-            temp = data['current']['temp_c']
+        if 'now' in data:
+            weather = data['now']['text']
+            temp = data['now']['temp']
             return weather, temp
         else:
             print("API 返回数据格式不正确:", data)
@@ -46,7 +68,7 @@ def get_random_sentence_online():
     try:
         url = "https://api.quotable.io/random"
         print(f"请求随机好句API的URL: {url}")  # 打印请求URL
-        response = requests.get(url)
+        response = requests.get(url, verify=False)  # 忽略 SSL 证书验证
         print(f"随机好句API响应状态码: {response.status_code}")  # 打印状态码
         print(f"随机好句API响应内容: {response.text}")  # 打印响应内容
         response.raise_for_status()  # 检查请求是否成功
@@ -98,8 +120,14 @@ def send_template_message(access_token, openid, template_id, data):
 
 # 主函数
 def main():
+    # 获取城市ID
+    city_id = get_city_id(city, weather_api_key)
+    if not city_id:
+        print("无法获取城市ID，程序退出。")
+        return
+    
     # 获取天气信息
-    weather, temp = get_weather(city)
+    weather, temp = get_weather(city_id, weather_api_key)
     if weather == "未知" or temp == "未知":
         print("天气信息获取失败，使用默认值。")
         weather, temp = "晴", "25"  # 默认值
