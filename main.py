@@ -109,6 +109,7 @@ def send_template_message(access_token, openid, template_id, data):
             "template_id": template_id,
             "data": data
         }
+        print("模板消息数据:", json.dumps(payload, ensure_ascii=False))  # 打印模板消息数据
         response = requests.post(url, json=payload)
         print(f"模板消息响应状态码: {response.status_code}")  # 打印状态码
         print(f"模板消息响应内容: {response.text}")  # 打印响应内容
@@ -155,6 +156,9 @@ def main():
         "custom_message": {"value": custom_message},
         "random_sentence": {"value": random_sentence}
     }
+    
+    # 打印模板消息数据
+    print("模板消息数据:", json.dumps(data, ensure_ascii=False))
     
     # 发送模板消息给多个用户
     for user_id in user_ids:
