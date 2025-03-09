@@ -29,10 +29,3 @@ jobs:
       # 4. 运行 Python 脚本
       - name: Run Python script
         run: python main.py
-
-      # 5. 测试网络连接（可选）
-      - name: Test network connectivity
-        run: |
-          ping -c 3 api.weatherapi.com
-          ping -c 3 api.quotable.io
-          ping -c 3 api.weixin.qq.com
