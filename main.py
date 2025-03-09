@@ -63,17 +63,17 @@ def get_weather(city_id, api_key):
         print(f"获取天气信息失败: {e}")
         return "未知", "未知"
 
-# 获取联网随机好句
+# 获取联网随机好句（使用一言 API）
 def get_random_sentence_online():
     try:
-        url = "https://api.quotable.io/random"
+        url = "https://v1.hitokoto.cn"
         print(f"请求随机好句API的URL: {url}")  # 打印请求URL
-        response = requests.get(url, verify=False)  # 忽略 SSL 证书验证
+        response = requests.get(url)
         print(f"随机好句API响应状态码: {response.status_code}")  # 打印状态码
         print(f"随机好句API响应内容: {response.text}")  # 打印响应内容
         response.raise_for_status()  # 检查请求是否成功
         data = response.json()
-        return f"{data['content']} ——{data['author']}"
+        return f"{data['hitokoto']} ——{data['from']}"
     except Exception as e:
         print(f"获取随机好句失败: {e}")
         return "每一天都是一个新的开始。"  # 失败时返回默认句子
