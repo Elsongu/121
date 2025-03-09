@@ -43,7 +43,7 @@ def get_city_id(city, api_key):
 # 获取天气信息（使用和风天气 API）
 def get_weather(city_id, api_key):
     try:
-        url = f"https://api.qweather.com/v7/weather/now?location={city_id}&key={api_key}"
+        url = f"https://devapi.qweather.com/v7/weather/now?location={city_id}&key={api_key}"  # 使用免费订阅接口
         print(f"请求天气API的URL: {url}")  # 打印请求URL
         response = requests.get(url)
         print(f"天气API响应状态码: {response.status_code}")  # 打印状态码
