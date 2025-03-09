@@ -4,7 +4,7 @@ api_key = fc2bff38964949678b8acbee3ce9cbde
 [WECHAT]
 app_id = wx5dbc5ee608b15643
 app_secret = 5bb4fa5e0482f5f08f3254fb2ea46cde
-template_id = RV9C05D2MGCqeW-WMliTp7HNWu9ZJ8TKioIHQsLXkH4
+template_id = KhajdoB-SD1vRz9aB5HCaItXOFdLxYxV7fRC7Ji6AzU
 user_ids = oCQD37ASZcPTkrxDweglI2HczlGI
 
 [CUSTOM_MESSAGE]
