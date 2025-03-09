@@ -22,7 +22,10 @@ city = "武汉市"
 def get_weather(city):
     try:
         url = f"http://api.weatherapi.com/v1/current.json?key={weather_api_key}&q={city}"
+        print(f"请求天气API的URL: {url}")  # 打印请求URL
         response = requests.get(url)
+        print(f"天气API响应状态码: {response.status_code}")  # 打印状态码
+        print(f"天气API响应内容: {response.text}")  # 打印响应内容
         response.raise_for_status()  # 检查请求是否成功
         data = response.json()
         
@@ -42,7 +45,10 @@ def get_weather(city):
 def get_random_sentence_online():
     try:
         url = "https://api.quotable.io/random"
+        print(f"请求随机好句API的URL: {url}")  # 打印请求URL
         response = requests.get(url)
+        print(f"随机好句API响应状态码: {response.status_code}")  # 打印状态码
+        print(f"随机好句API响应内容: {response.text}")  # 打印响应内容
         response.raise_for_status()  # 检查请求是否成功
         data = response.json()
         return f"{data['content']} ——{data['author']}"
@@ -61,7 +67,10 @@ def calculate_days_together():
 def get_access_token(app_id, app_secret):
     try:
         url = f"https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={app_id}&secret={app_secret}"
+        print(f"请求微信公众号访问令牌的URL: {url}")  # 打印请求URL
         response = requests.get(url)
+        print(f"微信公众号访问令牌响应状态码: {response.status_code}")  # 打印状态码
+        print(f"微信公众号访问令牌响应内容: {response.text}")  # 打印响应内容
         response.raise_for_status()  # 检查请求是否成功
         data = response.json()
         return data['access_token']
@@ -79,6 +88,8 @@ def send_template_message(access_token, openid, template_id, data):
             "data": data
         }
         response = requests.post(url, json=payload)
+        print(f"模板消息响应状态码: {response.status_code}")  # 打印状态码
+        print(f"模板消息响应内容: {response.text}")  # 打印响应内容
         response.raise_for_status()  # 检查请求是否成功
         return response.json()
     except Exception as e:
