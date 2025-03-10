@@ -1,6 +1,6 @@
 name: Daily Push
 
-on:
+#on:
   schedule:
     - cron: '0 23 * * *'  # 每天 UTC 时间的 0:00 执行（北京时间 8:00）
   workflow_dispatch:  # 允许手动触发
